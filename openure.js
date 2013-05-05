@@ -39,12 +39,12 @@ Openure = {
 
         _.each(this.allViews, function(view) {
             view.$el[0].addEventListener('click', _.bind(function(e) {
-                var ownIt = _.bind(this.applySelectedView, this);
-
-                clearInterval(this.listener);
-                this.listener = setInterval(ownIt, 100);
-
                 if(e.metaKey && e.shiftKey) {
+                    var ownIt = _.bind(this.applySelectedView, this);
+
+                    clearInterval(this.listener);
+                    this.listener = setInterval(ownIt, 100);
+
                     e.preventDefault();
                     this.currentView = view;
                 }
