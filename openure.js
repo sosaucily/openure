@@ -78,7 +78,8 @@ Openure = {
         var handler = _.bind(function(command) {
             if (command) {
                 try {
-                    this.jqconsole.Write('==> ' + window.eval(command) + '\n');
+                    this.jqconsole.Write(window.eval(command));
+                    this.jqconsole.Write('\n');
                 } catch (e) {
                     this.jqconsole.Write('ERROR: ' + e.message + '\n');
                 }
