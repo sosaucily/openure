@@ -1,8 +1,4 @@
-alert("bla");
-debugger
 var script = document.createElement('script');
-script.src = "openure.js";
+script.src = "https://raw.github.com/jesses16/openure/master/openure.js";
 script.type="text/javascript";
 document.head.appendChild(script);
-
-alert(Openure);
