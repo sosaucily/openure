@@ -2,21 +2,24 @@ Openure = {
     allViews: [],
     currentView: "",
     listener: "",
+    trackedViewsIDs: [],
 
     findViewsInRegion: function(region) {
         this.findViewsInView(region.currentView);
     },
 
     findViewsInView: function(view) {
-        for(var prop in view) {
-            this.findViewsAndRegionsInObject(prop);
+        if (view.cid && _.lastIndexOf(this.trackedViewsIDs, view.cid) == -1) {
+            this.trackedViewsIDs.push(view.cid);
+            for(var prop in view) {
+                this.findViewsAndRegionsInObject(view[prop]);
+            }
+            this.allViews.push(view);
         }
-        this.allViews.push(view);
     },
 
     findViewsAndRegionsInObject: function(obj) {
         for(var prop in obj) {
-
             if (obj[prop] instanceof Backbone.ChildViewContainer) {
                 obj[prop].each(function(subview) {
                     this.findViewsInView(subview);
