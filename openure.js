@@ -9,15 +9,29 @@ Openure = {
 
     findViewsInView: function(view) {
         for(var prop in view) {
-            if (view[prop] instanceof Backbone.ChildViewContainer) {
-                view[prop].each(function(subview) {
-                    this.findViewsInView(subview);
-                }, this);
-            } else if (view[prop] instanceof Marionette.Region) {
-                this.findViewsInRegion(view[prop]);
-            }
+            this.findViewsAndRegionsInObject(prop);
         }
         this.allViews.push(view);
+    },
+
+    findViewsAndRegionsInObject: function(obj) {
+        for(var prop in obj) {
+
+            if (obj[prop] instanceof Backbone.ChildViewContainer) {
+                obj[prop].each(function(subview) {
+                    this.findViewsInView(subview);
+                }, this);
+            }
+            else if (obj[prop] instanceof Marionette.Region) {
+                this.findViewsInRegion(obj[prop]);
+            }
+            else if (obj[prop] instanceof Marionette.View) {
+                this.findViewsInView(obj[prop]);
+            }
+            else if (obj[prop] instanceof Marionette.Application) {
+                this.findViewsAndRegionsInObject(obj[prop]);
+            }
+        }
     },
 
     applySelectedView: function() {
@@ -29,13 +43,7 @@ Openure = {
     },
 
     go: function() {
-        for(var prop in Fantasizr) {
-            if (Fantasizr[prop] instanceof Marionette.Region) {
-                this.findViewsInRegion(Fantasizr[prop]);
-            } else if (Fantasizr[prop] instanceof Marionette.View) {
-                this.findViewsInView(Fantasizr[prop]);
-            }
-        }
+        this.findViewsAndRegionsInObject(window);
 
         _.each(this.allViews, function(view) {
             view.$el[0].addEventListener('click', _.bind(function(e) {
@@ -53,4 +61,17 @@ Openure = {
     }
 };
 
-Openure.go();
+//Openure.go();
+
+var port = chrome.runtime.connect();
+
+window.addEventListener("message", function(event) {
+    // We only accept messages from ourselves
+//    if (event.source != window)
+//        return;
+
+    if (event.data.type && (event.data.type == "FROM_PAGE")) {
+        console.log("Content script received: " + event.data.text);
+        port.postMessage(event.data.text);
+    }
+}, false);

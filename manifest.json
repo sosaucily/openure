@@ -1,0 +1,35 @@
+{
+    "manifest_version": 2,
+
+    "name": "Openure",
+    "description": "Expose your Backbone views in a single click.",
+    "version": "0.1",
+
+//    "permissions": [
+//        "https://secure.flickr.com/"
+//    ],
+
+    "web_accessible_resources": [
+        "openure.js"
+//        "openure-startup.js"
+    ],
+
+    "content_scripts": [
+        {
+            "matches": ["<all_urls>"],
+            "js": [//"openure.js",
+                   "openure-startup.js"
+            ],
+            "run_at": "document_end"
+        }
+    ],
+
+    "browser_action": {
+        "default_icon": "openure.png"
+//        "default_popup": "openure_popup.html"
+    },
+
+    "background": {
+        "scripts": ["openure-plugin.js"]
+    }
+}
