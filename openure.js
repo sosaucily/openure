@@ -39,11 +39,17 @@ Openure = {
     },
 
     applySelectedView: function() {
-        console.log("rock the view - " + Openure.currentView.cid);
+        console.log("rock the view - " + this.currentView.cid);
 
         //Remove the current console when clicking a new one.
         if($('#console').length) {
             this.previousView.el.removeChild($('#console')[0]);
+        }
+
+        //For now, close it by clicking the same view again.
+        if(this.previousView.cid === this.currentView.cid){
+            this.previousView = null;
+            return;
         }
 
         var jqconsole = document.createElement('div');
