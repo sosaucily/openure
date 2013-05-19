@@ -40,6 +40,12 @@ Openure = {
     applySelectedView: function() {
         console.log("rock the view - " + Openure.currentView.cid);
 
+        //Remove the current console when clicking a new one.
+
+        if($('#openure-console').length) {
+            this.view.removeChild($('#openure-console'));
+        }
+
         var jqconsole = document.createElement('div');
         debugger
 
@@ -47,7 +53,7 @@ Openure = {
         width = width.substr(0, width.indexOf('px')); //pull off the px
         var consoleWidth = parseInt(width) - 5;
         jqconsole.style.cssText = 'width:' + consoleWidth + 'px';
-        jqconsole.id = "console";
+        jqconsole.id = "openure-console";
 
         this.currentView.el.appendChild(jqconsole);
 
@@ -56,7 +62,7 @@ Openure = {
             'The variable "view" is now in context\n' +
             'here and in the chrome console.\n' +
             'As is model, collection, and options.\n';
-        this.jqconsole = $('#console').jqconsole(header, 'JS> ');
+        this.jqconsole = $('#openure-console').jqconsole(header, 'JS> ');
 
 // Abort prompt on Ctrl+Z.
         this.jqconsole.RegisterShortcut('Z', function() {
