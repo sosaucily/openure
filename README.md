@@ -3,6 +3,8 @@ Openure
 Openure exposes the internal variables of Backbone Views on a page.
 Just CMND-SHIFT-click on the view, and an interactive JS console opens in page.
 
+For now, CMND-SHIFT-click on the same view to close.
+
 [screenshot should go here]
 
 The following variables are defined in the interactive terminal (and the standard chrome console as well, for now).
