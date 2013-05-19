@@ -39,6 +39,7 @@ Openure = {
     },
 
     applySelectedView: function() {
+        clearInterval(this.listener);
         console.log("rock the view - " + this.currentView.cid);
 
         //Remove the current console when clicking a new one.
@@ -46,7 +47,6 @@ Openure = {
             this.previousView.el.removeChild($('#console')[0]);
         }
 
-        debugger
         //For now, close it by clicking the same view again.
         if(this.previousView && this.previousView.cid === this.currentView.cid){
             this.previousView = null;
@@ -145,7 +145,6 @@ Openure = {
         view = this.currentView;
         collection = this.currentView.collection;
         options = this.currentView.options;
-        clearInterval(this.listener);
         this.previousView = view;
     },
 
