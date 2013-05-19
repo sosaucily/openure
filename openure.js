@@ -62,7 +62,7 @@ Openure = {
             'The variable "view" is now in context\n' +
             'here and in the chrome console.\n' +
             'As is model, collection, and options.\n';
-        this.jqconsole = $('#openure-console').jqconsole(header, 'JS> ');
+        this.jqconsole = $('#console').jqconsole(header, 'JS> ');
 
 // Abort prompt on Ctrl+Z.
         this.jqconsole.RegisterShortcut('Z', function() {
