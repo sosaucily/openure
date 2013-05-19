@@ -43,7 +43,7 @@ Openure = {
         //Remove the current console when clicking a new one.
 
         if($('#openure-console').length) {
-            this.view.removeChild($('#openure-console'));
+            this.view.el.removeChild($('#openure-console')[0]);
         }
 
         var jqconsole = document.createElement('div');
