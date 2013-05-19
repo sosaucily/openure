@@ -40,7 +40,7 @@ Openure = {
 
     applySelectedView: function() {
         clearInterval(this.listener);
-        console.log("rock the view - " + this.currentView.cid);
+//        console.log("rock the view - " + this.currentView.cid);
 
         //Remove the current console when clicking a new one.
         if($('#console').length) {
