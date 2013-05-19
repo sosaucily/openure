@@ -89,7 +89,9 @@ Openure = {
                 }
                 try {
                     if(isObject(result)) {
-                        result = JSON.stringify(result, undefined, 2);
+                        result = JSON.stringify(result, function(k, v) {
+                            return (k === '$el' || k === 'el' || k === '_events' || k === '_listeners') ? undefined : v;
+                        }, 2);
                     }
                 } catch (e) {
                     if (e.message === 'Converting circular structure to JSON') {
