@@ -3,6 +3,7 @@ Openure = {
     currentView: "",
     listener: "",
     trackedViewsIDs: [],
+    previousView: null,
 
     findViewsInRegion: function(region) {
         this.findViewsInView(region.currentView);
@@ -43,7 +44,7 @@ Openure = {
         //Remove the current console when clicking a new one.
         debugger
         if($('#console').length) {
-            this.view.el.removeChild($('#console')[0]);
+            this.previousView.el.removeChild($('#console')[0]);
         }
 
         var jqconsole = document.createElement('div');
@@ -140,6 +141,7 @@ Openure = {
         collection = this.currentView.collection;
         options = this.currentView.options;
         clearInterval(this.listener);
+        this.previousView = view;
     },
 
     go: function() {
