@@ -43,8 +43,10 @@ Openure = {
         var jqconsole = document.createElement('div');
         debugger
 
-        var width = this.currentView.$el.css('width') - 5;
-        jqconsole.style.cssText = 'position:absolute;width:' + width + 'px'//;height:500px;background-color:black';
+        var width = this.currentView.$el.css('width');
+        width = width.substr(0, width.indexOf('px')); //pull off the px
+        var consoleWidth = parseInt(width) - 5;
+        jqconsole.style.cssText = 'position:absolute;width:' + consoleWidth + 'px'//;height:500px;background-color:black';
         jqconsole.id = "console";
 
         this.currentView.el.appendChild(jqconsole);
