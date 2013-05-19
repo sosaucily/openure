@@ -47,7 +47,7 @@ Openure = {
         }
 
         //For now, close it by clicking the same view again.
-        if(this.previousView.cid === this.currentView.cid){
+        if(this.previousView && this.previousView.cid === this.currentView.cid){
             this.previousView = null;
             return;
         }
