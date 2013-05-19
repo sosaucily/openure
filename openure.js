@@ -74,15 +74,35 @@ Openure = {
         this.jqconsole.RegisterMatching('{', '}', 'brace');
         this.jqconsole.RegisterMatching('(', ')', 'paran');
         this.jqconsole.RegisterMatching('[', ']', 'bracket');
+
+        isObject = function(obj) {
+            return obj === Object(obj);
+        };
+
 // Handle a command.
         var handler = _.bind(function(command) {
             if (command) {
                 try {
-                    this.jqconsole.Write(window.eval(command));
-                    this.jqconsole.Write('\n');
+                    var result = window.eval(command);
                 } catch (e) {
                     this.jqconsole.Write('ERROR: ' + e.message + '\n');
                 }
+                try {
+                    if(isObject(result)) {
+                        result = JSON.stringify(result, undefined, 2);
+                    }
+                } catch (e) {
+                    if (e.message === 'Converting circular structure to JSON') {
+                        this.jqconsole.Write('ERROR: ' + e.message + '\n');
+                        this.jqconsole.Write('Please try the same command in the chrome console.\n');
+                    }
+                    else {
+                        this.jqconsole.Write('ERROR: ' + e.message + '\n');
+                    }
+                }
+
+                this.jqconsole.Write(result);
+                this.jqconsole.Write('\n');
             }
             this.jqconsole.Prompt(true, handler, function(command) {
                 // Continue line if can't compile the command.
