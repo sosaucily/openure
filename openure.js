@@ -42,18 +42,16 @@ Openure = {
         console.log("rock the view - " + Openure.currentView.cid);
 
         //Remove the current console when clicking a new one.
-        debugger
         if($('#console').length) {
             this.previousView.el.removeChild($('#console')[0]);
         }
 
         var jqconsole = document.createElement('div');
-        debugger
 
         var width = this.currentView.$el.css('width');
         width = width.substr(0, width.indexOf('px')); //pull off the px
         var consoleWidth = parseInt(width) - 5;
-        jqconsole.style.cssText = 'width:' + consoleWidth + 'px';
+        jqconsole.style.cssText = 'width:' + consoleWidth + 'px;z-index:99';
         jqconsole.id = "console";
 
         this.currentView.el.appendChild(jqconsole);
