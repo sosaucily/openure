@@ -46,6 +46,7 @@ Openure = {
             this.previousView.el.removeChild($('#console')[0]);
         }
 
+        debugger
         //For now, close it by clicking the same view again.
         if(this.previousView && this.previousView.cid === this.currentView.cid){
             this.previousView = null;
