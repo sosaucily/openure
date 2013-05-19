@@ -49,8 +49,8 @@ Openure = {
 
 // Creating the console.
         var header = 'Welcome to Openure in JQConsole!\n' +
-            'The variable "view" is now in context ' +
-            'here and in the chrome console.' +
+            'The variable "view" is now in context\n' +
+            'here and in the chrome console.\n' +
             'As is model, collection, and options.\n';
         this.jqconsole = $('#console').jqconsole(header, 'JS> ');
 
