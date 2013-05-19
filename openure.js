@@ -48,9 +48,10 @@ Openure = {
         this.currentView.el.appendChild(jqconsole);
 
 // Creating the console.
-        var header = 'Welcome to JQConsole!\n' +
-            'Use jqconsole.Write() to write and ' +
-            'jqconsole.Input() to read.\n';
+        var header = 'Welcome to Openure in JQConsole!\n' +
+            'The variable 'view' is now in context' +
+            'here and in the chrome console.' +
+            'As is model, collection, and options.\n';
         this.jqconsole = $('#console').jqconsole(header, 'JS> ');
 
 // Abort prompt on Ctrl+Z.
@@ -127,6 +128,7 @@ Openure = {
         model = this.currentView.model;
         view = this.currentView;
         collection = this.currentView.collection;
+        options = this.currentView.options;
         clearInterval(this.listener);
     },
 
