@@ -1,8 +1,8 @@
 #console {
-    height: 100px;
+    height: 300px;
     /*width: 250px;*/
-    position:relative;
-    background-color: black;
+    position:absolute;
+    z-index=99;
     border: 2px solid #CCC;
     margin: 0 auto;
     margin-top: 5px;

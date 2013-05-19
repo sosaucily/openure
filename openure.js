@@ -46,7 +46,7 @@ Openure = {
         var width = this.currentView.$el.css('width');
         width = width.substr(0, width.indexOf('px')); //pull off the px
         var consoleWidth = parseInt(width) - 5;
-        jqconsole.style.cssText = 'position:absolute;width:' + consoleWidth + 'px'//;height:500px;background-color:black';
+        jqconsole.style.cssText = 'width:' + consoleWidth + 'px';
         jqconsole.id = "console";
 
         this.currentView.el.appendChild(jqconsole);
