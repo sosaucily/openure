@@ -5,12 +5,14 @@ Just CMND-SHIFT-click on the view, and an interactive JS console opens in page.
 
 [screenshot should go here]
 
-The following variables are defined in the interactive terminal.
+The following variables are defined in the interactive terminal (and the standard chrome console as well, for now).
 
 * view - the view you clicked
 * model - the model of the view, if there is one. Same as typing view.model
 * collection - the collection of the view, if there is one.  Same as typing view.collection
 * options - the options passed to the view.  Same as typing view.options
+
+Tell me if you prefer the variables in the chrome console, or in line.  We'll do this democratically.
 
 Why
 -------------------------
