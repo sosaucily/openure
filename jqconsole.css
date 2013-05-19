@@ -1,15 +1,15 @@
 #console {
-    height: 150px;
-    width: 200px;
+    height: 100px;
+    /*width: 250px;*/
     position:relative;
     background-color: black;
     border: 2px solid #CCC;
     margin: 0 auto;
-    margin-top: 50px;
+    margin-top: 5px;
 }
 .jqconsole {
-    padding: 10px;
-    padding-bottom: 10px;
+    padding: 5px;
+    padding-bottom: 5px;
 }
 .jqconsole-cursor {
     background-color: #999;
