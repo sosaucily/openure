@@ -157,7 +157,7 @@ Openure = {
     },
 
     go: function() {
-        var openureKey = $('openure_key');
+        var openureKey = $('openure_keys');
         if(openureKey.length < 1 || openureKey.text() === ""){
             console.log('No Openure keys are configured.  Go to the Chrome extensions page and add the key to the Openure options page.')
             return
