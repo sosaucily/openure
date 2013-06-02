@@ -4,43 +4,51 @@ Openure = {
     listener: "",
     trackedViewsIDs: [],
     previousView: null,
+	stackSize: 0,
+	maxStackSize: 30,
 
-    findViewsInRegion: function(region) {
-        this.findViewsInView(region.currentView);
+    findViewsInArray: function(array) {
+		//for x in array.len....
+        //this.findViewsInView(region.currentView);
     },
 
-    findViewsInView: function(view) {
+    registerView: function(view) {
         if (view.cid && _.lastIndexOf(this.trackedViewsIDs, view.cid) == -1) {
             this.trackedViewsIDs.push(view.cid);
-            for(var prop in view) {
-                this.findViewsAndRegionsInObject(view[prop]);
-            }
+
             this.allViews.push(view);
         }
     },
 
-    findViewsAndRegionsInObject: function(obj) {
-        for(var prop in obj) {
-            if (obj[prop] instanceof Backbone.ChildViewContainer) {
-                obj[prop].each(function(subview) {
-                    this.findViewsInView(subview);
-                }, this);
-            }
-            else if (obj[prop] instanceof Marionette.Region) {
-                this.findViewsInRegion(obj[prop]);
-            }
-            else if (obj[prop] instanceof Marionette.View) {
-                this.findViewsInView(obj[prop]);
-            }
-            else if (obj[prop] instanceof Marionette.Application) {
-                this.findViewsAndRegionsInObject(obj[prop]);
-            }
-        }
+    findViewsInObject: function(obj) {
+		this.stackSize++;
+		if (this.stackSize < this.maxStackSize){
+        	for(var prop in obj) {
+                if(obj.nodeName) {
+                    //this is an html element, and continuing will blow up
+                    return
+                }
+	            if (obj[prop] instanceof Backbone.View) {
+                    this.registerView(obj[prop])
+	                this.findViewsInObject(obj[prop]);
+	            }
+				else if (obj[prop] instanceof Array) {
+					this.findViewsInArray(obj[prop]);
+				}
+				else if (obj[prop] instanceof Function) {
+					//skip
+				}
+	            else if (obj[prop] instanceof Object) {
+	                this.findViewsInObject(obj[prop]);
+	            }
+	        }
+		}
+		this.stackSize--;
     },
 
     applySelectedView: function() {
         clearInterval(this.listener);
-//        console.log("rock the view - " + this.currentView.cid);
+        console.log("rock the view - " + this.currentView.cid);
 
         //Remove the current console when clicking a new one.
         if($('#console').length) {
@@ -149,7 +157,13 @@ Openure = {
     },
 
     go: function() {
-        this.findViewsAndRegionsInObject(window);
+        var openureKey = $('openure_key');
+        if(openureKey.length < 1 || openureKey.text() === ""){
+            console.log('No Openure keys are configured.  Go to the Chrome extensions page and add the key to the Openure options page.')
+            return
+        }
+        console.log('Running Openure against global variable: ' + openureKey.text());
+        this.findViewsInObject(eval(openureKey.text()));
 
         _.each(this.allViews, function(view) {
             view.$el[0].addEventListener('click', _.bind(function(e) {
