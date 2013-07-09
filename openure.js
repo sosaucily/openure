@@ -4,11 +4,11 @@ Openure = {
     listener: "",
     trackedViewsIDs: [],
     previousView: null,
-	stackSize: 0,
-	maxStackSize: 30,
+    stackSize: 0,
+    maxStackSize: 30,
 
     findViewsInArray: function(array) {
-		//for x in array.len....
+    //for x in array.len....
         //this.findViewsInView(region.currentView);
     },
 
@@ -21,29 +21,29 @@ Openure = {
     },
 
     findViewsInObject: function(obj) {
-		this.stackSize++;
-		if (this.stackSize < this.maxStackSize){
-        	for(var prop in obj) {
+    this.stackSize++;
+    if (this.stackSize < this.maxStackSize){
+          for(var prop in obj) {
                 if(obj.nodeName) {
                     //this is an html element, and continuing will blow up
-                    return
+                    return;
                 }
-	            if (obj[prop] instanceof Backbone.View) {
+              if (obj[prop] instanceof Backbone.View) {
                     this.registerView(obj[prop])
-	                this.findViewsInObject(obj[prop]);
-	            }
-				else if (obj[prop] instanceof Array) {
-					this.findViewsInArray(obj[prop]);
-				}
-				else if (obj[prop] instanceof Function) {
-					//skip
-				}
-	            else if (obj[prop] instanceof Object) {
-	                this.findViewsInObject(obj[prop]);
-	            }
-	        }
-		}
-		this.stackSize--;
+                  this.findViewsInObject(obj[prop]);
+              }
+        else if (obj[prop] instanceof Array) {
+          this.findViewsInArray(obj[prop]);
+        }
+        else if (obj[prop] instanceof Function) {
+          //skip
+        }
+              else if (obj[prop] instanceof Object) {
+                  this.findViewsInObject(obj[prop]);
+              }
+          }
+    }
+    this.stackSize--;
     },
 
     applySelectedView: function() {
@@ -160,7 +160,7 @@ Openure = {
         var openureKey = $('openure_keys');
         if(openureKey.length < 1 || openureKey.text() === ""){
             console.log('No Openure keys are configured.  Go to the Chrome extensions page and add the key to the Openure options page.')
-            return
+            return;
         }
         console.log('Running Openure against global variable: ' + openureKey.text());
         this.findViewsInObject(eval(openureKey.text()));
