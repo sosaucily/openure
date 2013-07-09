@@ -1,0 +1,19 @@
+h2, h3 {
+  text-align: center;
+}
+
+#main {
+  width: 600px;
+  margin: 0 auto;
+}
+
+.flash-success {
+  color: green;
+  font-weight: bold;
+}
+
+/*
+.jqconsole {
+  background-color: rgb(0, 0, 0);
+  color: white;
+}*/
