@@ -1,5 +1,7 @@
 Openure
 ================================
+Click here: http://bit.ly/4kb77v
+
 Openure exposes the internal variables of Backbone Views on a page.
 Just CMND-SHIFT-click on the view, and an interactive JS console opens in page.
 
