@@ -154,14 +154,17 @@ Openure = {
     this.previousView = view;
   },
 
-  go: function() {
+  go: function(backbone_app_key) {
     var openureKey = $('openure_keys');
-    if(openureKey.length < 1 || openureKey.text() === ""){
+    if((openureKey.length < 1 || openureKey.text() === "") && !openure_key){
       console.log('No Openure keys are configured.  Go to the Chrome extensions page and add the key to the Openure options page.');
-      return;
     }
-    console.log('Running Openure against global variable: ' + openureKey.text());
-    this.findViewsInObject(eval(openureKey.text()));
+    else {
+        backbone_app_key = openureKey.text() || openure_key;
+    }
+
+    console.log('Running Openure against global variable: ' + backbone_app_key);
+    this.findViewsInObject(eval(backbone_app_key));
 
     _.each(this.allViews, function(view) {
       view.$el[0].addEventListener('click', _.bind(function(e) {
