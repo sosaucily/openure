@@ -75,22 +75,31 @@ Openure = {
       'As is model, collection, and options.\n';
     this.jqconsole = $('#console').jqconsole(header, 'JS> ');
 
+    var that = this;
     // Abort prompt on Ctrl+Z.
     this.jqconsole.RegisterShortcut('Z', function() {
-      this.jqconsole.AbortPrompt();
+      that.jqconsole.AbortPrompt();
       handler();
     });
 
     // Move to line start Ctrl+A.
     this.jqconsole.RegisterShortcut('A', function() {
-      this.jqconsole.MoveToStart();
+      that.jqconsole.MoveToStart();
       handler();
     });
 
     // Move to line end Ctrl+E.
     this.jqconsole.RegisterShortcut('E', function() {
-      this.jqconsole.MoveToEnd();
+      that.jqconsole.MoveToEnd();
       handler();
+    });
+
+    // Close console
+    this.jqconsole.RegisterShortcut('W', function() {
+        that.previousView.el.removeChild($('#console')[0]);
+    });
+    this.jqconsole.RegisterShortcut('Q', function() {
+      that.previousView.el.removeChild($('#console')[0]);
     });
 
     this.jqconsole.RegisterMatching('{', '}', 'brace');
