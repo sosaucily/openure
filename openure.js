@@ -98,9 +98,11 @@ Openure = {
     // Close console
     this.jqconsole.RegisterShortcut('W', function() {
         that.previousView.el.removeChild($('#console')[0]);
+        that.previousView = null;
     });
     this.jqconsole.RegisterShortcut('Q', function() {
       that.previousView.el.removeChild($('#console')[0]);
+        that.previousView = null;
     });
 
     this.jqconsole.RegisterMatching('{', '}', 'brace');
