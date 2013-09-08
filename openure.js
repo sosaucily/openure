@@ -74,7 +74,7 @@ Openure = {
       'here and in the chrome console.\n' +
       'As is model, collection, and options.\n' +
       'Close this window with ctrl-q or ctrl-w.\n';
-    this.jqconsole = $('#console').jqconsole(header, 'JS> ');
+    this.jqconsole = $(jqconsole).jqconsole(header, 'JS> ');
 
     var that = this;
     // Abort prompt on Ctrl+Z.
