@@ -60,10 +60,7 @@ Openure = {
 
         var jqconsole = document.createElement('div');
 
-        var width = this.currentView.$el.css('width');
-        width = width.substr(0, width.indexOf('px')); //pull off the px
-        var consoleWidth = parseInt(width, 10) - 5;
-        jqconsole.style.cssText = 'width:' + consoleWidth + 'px;z-index:99';
+        jqconsole.style.cssText = 'width:' + 600 + 'px;z-index:99';
         jqconsole.id = "console";
 
         this.currentView.el.appendChild(jqconsole);
@@ -71,9 +68,10 @@ Openure = {
         // Creating the console.
         var header = 'Welcome to Openure in JQConsole!\n' +
             'The variable "view" is now in context\n' +
-            'here and in the chrome console.\n' +
+            '(here and in the chrome console.)\n' +
             'As is model, collection, and options.\n' +
-            'Close this window with ctrl-q or ctrl-w.\n';
+            'Close this window with ctrl-q or ctrl-w.\n' +
+            'Resize as needed.\n';
         this.jqconsole = $(jqconsole).jqconsole(header, 'JS> ');
 
         $(jqconsole).draggable().resizable();
