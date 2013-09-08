@@ -176,23 +176,27 @@ Openure = {
         backbone_app_key = openureKey.text() || openure_key;
     }
 
-    console.log('Running Openure against global variable: ' + backbone_app_key);
-    this.findViewsInObject(eval(backbone_app_key));
+    var that = this;
 
-    _.each(this.allViews, function(view) {
-      view.$el[0].addEventListener('click', _.bind(function(e) {
-        if(e.metaKey && e.shiftKey) {
-          var ownIt = _.bind(this.applySelectedView, this);
+    window.setInterval(function() {
+        console.log('Running Openure against global variable: ' + backbone_app_key);
+        that.findViewsInObject(eval(backbone_app_key));
 
-          clearInterval(this.listener);
-          this.listener = setInterval(ownIt, 100);
+        _.each(that.allViews, function(view) {
+            view.$el[0].addEventListener('click', _.bind(function(e) {
+                if(e.metaKey && e.shiftKey) {
+                    var ownIt = _.bind(that.applySelectedView, that);
 
-          e.preventDefault();
-          e.stopImmediatePropagation();
-          this.currentView = view;
-        }
-      }, this), true);
-    }, this);
+                    clearInterval(that.listener);
+                    that.listener = setInterval(ownIt, 100);
+
+                    e.preventDefault();
+                    e.stopImmediatePropagation();
+                    that.currentView = view;
+                }
+            }, that), true);
+        }, that);
+    }, 2000);
   }
 };
 
