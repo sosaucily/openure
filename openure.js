@@ -154,7 +154,8 @@ Openure = {
     this.previousView = view;
   },
 
-  go: function(backbone_app_key) {
+  go: function() {
+    var backbone_app_key;
     var openureKey = $('openure_keys');
     if((openureKey.length < 1 || openureKey.text() === "") && !openure_key){
       console.log('No Openure keys are configured.  Go to the Chrome extensions page and add the key to the Openure options page.');
