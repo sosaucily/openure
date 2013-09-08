@@ -49,7 +49,7 @@ Openure = {
 
         //Remove the current console when clicking a new one.
         if ($('#console').length) {
-            this.previousView.el.removeChild($('#console')[0]);
+            $('body')[0].removeChild($('#console')[0]);
         }
 
         //For now, close it by clicking the same view again.
@@ -60,10 +60,10 @@ Openure = {
 
         var jqconsole = document.createElement('div');
 
-        jqconsole.style.cssText = 'width:' + 600 + 'px;z-index:99';
+        jqconsole.style.cssText = 'width:' + 600 + 'px;z-index:99;bottom:0px';
         jqconsole.id = "console";
 
-        this.currentView.el.appendChild(jqconsole);
+        $('body')[0].appendChild(jqconsole);
 
         // Creating the console.
         var header = 'Welcome to Openure in JQConsole!\n' +
@@ -97,11 +97,11 @@ Openure = {
 
         // Close console
         this.jqconsole.RegisterShortcut('W', function () {
-            that.previousView.el.removeChild($('#console')[0]);
+            $('body')[0].removeChild($('#console')[0]);
             that.previousView = null;
         });
         this.jqconsole.RegisterShortcut('Q', function () {
-            that.previousView.el.removeChild($('#console')[0]);
+            $('body')[0].removeChild($('#console')[0]);
             that.previousView = null;
         });
 
