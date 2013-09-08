@@ -76,6 +76,8 @@ Openure = {
             'Close this window with ctrl-q or ctrl-w.\n';
         this.jqconsole = $(jqconsole).jqconsole(header, 'JS> ');
 
+        $(jqconsole).draggable().resizable();
+
         var that = this;
         // Abort prompt on Ctrl+Z.
         this.jqconsole.RegisterShortcut('Z', function () {
@@ -178,8 +180,8 @@ Openure = {
 
         var that = this;
 
+        console.log('Running Openure against global variable: ' + backbone_app_key);
         window.setInterval(function () {
-            console.log('Running Openure against global variable: ' + backbone_app_key);
             that.findViewsInObject(eval(backbone_app_key));
 
             _.each(that.allViews, function (view) {
