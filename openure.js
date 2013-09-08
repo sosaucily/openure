@@ -185,6 +185,7 @@ Openure = {
           this.listener = setInterval(ownIt, 100);
 
           e.preventDefault();
+          e.stopImmediatePropagation();
           this.currentView = view;
         }
       }, this), true);
