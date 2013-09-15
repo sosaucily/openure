@@ -205,7 +205,6 @@
     };
 
     $(function () {
-        console.info('LOCAL OPENURE');
         Openure.go();
     });
 })();
