@@ -24,6 +24,9 @@ The following variables are defined in the interactive terminal.
 * collection - the collection of the view, if there is one.  Same as typing view.collection
 * options - the options passed to the view.  Same as typing view.options
 
+Help
+-------------------------
+If you see "openure_key is not defined" then go back to setup step 2.
 
 Example
 -------------------------
