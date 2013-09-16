@@ -2,14 +2,21 @@ Openure
 ================================
 Openure exposes the internal variables of Backbone Views on a page.
 
-Setup:
 
-1. Expose your backbone app in a global variable.
+Setup & Use
+-------------------------
+
+1. Expose your backbone app in a global variable. (Flag this off for your Development env only if you'd like)
 
 2. Set that variable name in the Openure extension options at chrome://extensions/ - look for Openure and click - 'options'
 
-Then just CMND-SHIFT-click on a view and the 'view', 'model', and 'collection' variables will be available in the chrome console.
+3. CMND-SHIFT-click on a view.  Notice the view you clicked is highlighted in a lightbox (courtesy of jQuery Spotlight - http://dev7studios.com/portfolio/jquery-spotlight/)
 
+4. In the Chrome JS console, use the 'view', 'model', and 'collection' variables.
+
+
+Details
+-------------------------
 The following variables are defined in the interactive terminal.
 
 * view - the view you clicked
@@ -17,13 +24,16 @@ The following variables are defined in the interactive terminal.
 * collection - the collection of the view, if there is one.  Same as typing view.collection
 * options - the options passed to the view.  Same as typing view.options
 
+
 Example
 -------------------------
 You can change the model and call view.render(), or see the state of a view.
 
+
 Why
 -------------------------
 It's a hassle to find and drill down into your views from the console.  Going back and adding clogs or debuggers isn't fun either.  Just click and get crazy.
+
 
 Future Development
 -------------------------
