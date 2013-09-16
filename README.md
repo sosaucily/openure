@@ -21,3 +21,7 @@ You can change the model and call view.render(), or see the state of a view.
 Why
 -------------------------
 It's a hassle to find and drill down into your views from the console.  Going back and adding clogs or debuggers isn't fun either.  Just click and get crazy.
+
+Future Development
+-------------------------
+For a while we were trying to get a jqconsole to appear and be draggable around the screen.  Making this console as good as Chrome's proved very challenging, so this is on a branch for now.
