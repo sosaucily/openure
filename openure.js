@@ -49,7 +49,7 @@
 
         applySelectedView: function () {
             clearInterval(this.listener);
-            console.log("rock the view - " + this.currentView.cid);
+            console.log("clicked detected on view: " + this.currentView.cid);
 
             //Remove the current console when clicking a new one.
             if ($('#console').length) {
@@ -189,18 +189,24 @@
                 that.findViewsInObject(eval(backbone_app_key));
 
                 _.each(that.allViews, function (view) {
-                    view.$el[0].addEventListener('click', _.bind(function (e) {
-                        if (e.metaKey && e.shiftKey) {
+                    if (!view.openure) {
+                        view.openure = function (e) {
+                            if (e.metaKey && e.shiftKey) {
+                                e.preventDefault();
+                                e.stopImmediatePropagation();
+                                $(e.target).trigger('sup');
+                            }
+                        };
+                        console.log("registering view: " + view.cid);
+                        view.$el[0].addEventListener('click', _.bind(view.openure, that), true);
+                        $(view.el).on('sup', function (e) {
+                            e.stopPropagation();
                             var ownIt = _.bind(that.applySelectedView, that);
-
                             clearInterval(that.listener);
                             that.listener = setInterval(ownIt, 100);
-
-                            e.preventDefault();
-                            e.stopImmediatePropagation();
                             that.currentView = view;
-                        }
-                    }, that), true);
+                        });
+                    }
                 }, that);
             }, 2000);
         }
