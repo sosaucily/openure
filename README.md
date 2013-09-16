@@ -2,10 +2,13 @@ Openure
 ================================
 Openure exposes the internal variables of Backbone Views on a page.
 
-Steps:
-1. Expose your backbone app in a global variable and set that variable name in the Openure extension options at chrome://extensions/
+Setup:
 
-2. CMND-SHIFT-click on a view and the 'view', 'model', 'collection' and 'options' variables will be available in the chrome console.
+1. Expose your backbone app in a global variable.
+
+2. Set that variable name in the Openure extension options at chrome://extensions/ - look for Openure and click - 'options'
+
+Then just CMND-SHIFT-click on a view and the 'view', 'model', and 'collection' variables will be available in the chrome console.
 
 The following variables are defined in the interactive terminal.
 
