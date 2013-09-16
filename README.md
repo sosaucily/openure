@@ -28,6 +28,8 @@ Help
 -------------------------
 If you see "openure_key is not defined" then go back to setup step 2.
 
+For now, it seems like the Openure Extension Options window needs to remain open :(  Working on it...
+
 Example
 -------------------------
 You can change the model and call view.render(), or see the state of a view.
@@ -41,3 +43,5 @@ It's a hassle to find and drill down into your views from the console.  Going ba
 Future Development
 -------------------------
 For a while we were trying to get a jqconsole to appear and be draggable around the screen.  Making this console as good as Chrome's proved very challenging, so this is on a branch for now.
+
+Help make it better!  https://github.com/sosaucily/openure
