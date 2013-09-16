@@ -8,7 +8,7 @@ Setup & Use
 
 1. Expose your backbone app in a global variable. (Flag this off for your Development env only if you'd like)
 
-2. Set that variable name in the Openure extension options at chrome://extensions/ - look for Openure and click - 'options'
+2. Set that variable name in the Openure extension options at chrome://extensions/ and refresh the page (look for Openure in your extensions and click - 'options')
 
 3. CMND-SHIFT-click on a view.  Notice the view you clicked is highlighted in a lightbox (courtesy of jQuery Spotlight - http://dev7studios.com/portfolio/jquery-spotlight/)
 
