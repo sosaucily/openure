@@ -48,8 +48,8 @@
 
         applySelectedView: function () {
             clearInterval(this.listener);
-            console.log("clicked detected on view: " + this.currentView.cid);
-
+            console.log("Openure: You clicked view: " + this.currentView.cid);
+            console.log("You now have access to the 'view', 'model', 'collection' and 'options' variables!");
 
             isObject = function (obj) {
                 return obj === Object(obj);
@@ -89,7 +89,6 @@
                                 $(e.target).trigger('sup');
                             }
                         };
-                        console.log("registering view: " + view.cid);
                         view.$el[0].addEventListener('click', _.bind(view.openure, that), true);
                         $(view.el).on('sup', function (e) {
                             e.stopPropagation();
