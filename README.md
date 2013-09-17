@@ -12,7 +12,7 @@ Setup & Use
 
 3. CMND-SHIFT-click on a view.  Notice the view you clicked is highlighted in a lightbox (courtesy of jQuery Spotlight - http://dev7studios.com/portfolio/jquery-spotlight/)
 
-4. In the Chrome JS console, use the 'view', 'model', and 'collection' variables.
+4. In the Chrome JS console, use the 'view', 'model', 'collection' and 'options' variables.
 
 
 Details
