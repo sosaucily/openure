@@ -9,6 +9,7 @@
         trackedViewsIDs: [],
         stackSize: 0,
         maxStackSize: 30,
+        failCount: 3,
 
         findViewsInArray: function (array) {
             //for x in array.len....
@@ -65,19 +66,30 @@
         },
 
         go: function () {
-            var backbone_app_key;
-            var openureKey = $('openure_keys');
-            if ((openureKey.length < 1 || openureKey.text() === "") && !openure_key) {
+            var backbone_app_key,
+                openureKey = $('openure_keys');
+
+            if ((openureKey.length < 1 || openureKey.text() === "")) {
                 console.log('No Openure keys are configured.  Go to the Chrome extensions page and add the key to the Openure options page.');
+                return;
             }
             else {
-                backbone_app_key = openureKey.text() || openure_key;
+                backbone_app_key = openureKey.text();
             }
 
             var that = this;
 
             console.log('Running Openure against global variable: ' + backbone_app_key);
-            window.setInterval(function () {
+            Openure.intervalHandler = window.setInterval(function () {
+                try {
+                    eval(backbone_app_key);
+                } catch(e) {
+                    Openure.failCount--;
+                    console.log("Unable to find " + backbone_app_key + ".  Retrying " + Openure.failCount + " more times.")
+                    if (Openure.failCount <= 0) {
+                        window.clearInterval(Openure.intervalHandler);
+                    }
+                }
                 that.findViewsInObject(eval(backbone_app_key));
 
                 _.each(that.allViews, function (view) {
