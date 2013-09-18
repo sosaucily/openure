@@ -89,6 +89,7 @@
                     if (Openure.failCount <= 0) {
                         window.clearInterval(Openure.intervalHandler);
                     }
+                    return
                 }
                 that.findViewsInObject(eval(backbone_app_key));
 
