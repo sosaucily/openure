@@ -9,6 +9,7 @@
         trackedViewsIDs: [],
         stackSize: 0,
         maxStackSize: 30,
+        failCount: 5,
 
         findViewsInArray: function (array) {
             //for x in array.len....
@@ -68,7 +69,11 @@
             var backbone_app_key;
             var openureKey = $('openure_keys');
             if ((openureKey.length < 1 || openureKey.text() === "") && !openure_key) {
-                console.log('No Openure keys are configured.  Go to the Chrome extensions page and add the key to the Openure options page.');
+                Openure.failCount--;
+                console.log('No Openure keys are configured.  Go to the Chrome extensions page and add the key to the Openure options page.  Retrying ' + Openure.failCount + ' more times.');
+                if(Openure.failCount <= 0) {
+                    window.clearInterval(Openure.intervalHandler);
+                }
             }
             else {
                 backbone_app_key = openureKey.text() || openure_key;
@@ -77,7 +82,7 @@
             var that = this;
 
             console.log('Running Openure against global variable: ' + backbone_app_key);
-            window.setInterval(function () {
+            Openure.intervalHandler = window.setInterval(function () {
                 that.findViewsInObject(eval(backbone_app_key));
 
                 _.each(that.allViews, function (view) {
