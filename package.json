@@ -1,0 +1,14 @@
+{
+    "name": "openure",
+    "version": "0.3.0",
+    "devDependencies": {
+        "grunt": "~0.4.1",
+        "grunt-contrib-watch": "~0.5.1",
+        "jasmine-node": "~1.11.0",
+        "grunt-shell": "~0.4.0"
+    },
+    "repository" : {
+        "type" : "git",
+        "url" : "https://github.com/sosaucily/openure.git"
+    }
+}
