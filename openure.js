@@ -91,6 +91,8 @@
                     }
                     return
                 }
+                that.allViews = [];
+                that.trackedViewsIDs = [];
                 that.findViewsInObject(eval(backbone_app_key));
 
                 _.each(that.allViews, function (view) {
