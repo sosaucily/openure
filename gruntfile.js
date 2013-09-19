@@ -15,12 +15,24 @@ module.exports = function(grunt) {
                 options: {
                     stdout: true
                 },
-                command: 'node_modules/jasmine-node/bin/jasmine-node specs'
+                command: [
+                    'cp openure.js node_modules',
+                    'node_modules/jasmine-node/bin/jasmine-node --growl specs'
+                ].join('&&')
+            }
+        },
+        connect: {
+            server: {
+                options: {
+                    port: 9001,
+                    base: 'spec-www'
+                }
             }
         }
     });
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-shell');
+    grunt.loadNpmTasks('grunt-contrib-connect');
 
     grunt.registerTask('default', ['shell:jasmine']);
 };
