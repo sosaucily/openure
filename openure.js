@@ -11,6 +11,11 @@
         maxStackSize: 30,
         failCount: 3,
 
+        reset: function () {
+            this.allViews = [];
+            this.trackedViewsIDs = [];
+        },
+
         findViewsInArray: function (array) {
             //for x in array.len....
             //this.findViewsInView(region.currentView);
@@ -91,8 +96,8 @@
                     }
                     return
                 }
-                that.allViews = [];
-                that.trackedViewsIDs = [];
+                that.reset();
+
                 that.findViewsInObject(eval(backbone_app_key));
 
                 _.each(that.allViews, function (view) {
