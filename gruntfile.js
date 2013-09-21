@@ -17,6 +17,7 @@ module.exports = function(grunt) {
                 },
                 command: [
                     'cp openure.js node_modules',
+                    'cp spec_helper.js node_modules',
                     'node_modules/jasmine-node/bin/jasmine-node --growl specs'
                 ].join('&&')
             }
