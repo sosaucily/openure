@@ -25,8 +25,9 @@ module.exports = function(grunt) {
         connect: {
             server: {
                 options: {
-                    port: 9001,
-                    base: 'spec-www'
+                    port: 9000,
+                    base: '.',
+                    protocol: 'https'
                 }
             }
         }
