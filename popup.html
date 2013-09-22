@@ -7,10 +7,17 @@
 <div id="main">
     <h2>Openure Options</h2>
     <!--       <h3>The opposite of closures</h3> -->
-    <p>Enter the global variable name of the top level variable that will hold your views.</p>
+    <p>Enter the global variable name of the top level variable that will hold your backbone views.</p>
     <section>
-        <label>App View Variable Name:</label>
+        <label>Backbone Application Variable (page variable where your views live):</label>
         <input id="openure-key"/>
+
+        <br />
+
+        <label>Run in local development mode:</label>
+        <input type='checkbox' id="openure-development"/>
+
+        <br />
 
         <div id="status"></div>
         <button id="save">Save</button>
