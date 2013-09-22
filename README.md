@@ -41,9 +41,9 @@ It's a hassle to find and drill down into your views from the console.  Going ba
 
 Development (help make me better!)
 -------------------------
-git clone
+```git clone```
 
-npm install (from in the openure directory)
+```npm install``` (from in the openure directory)
 
 To load your local copy of openure.js in your chrome extension, run this command.
 
