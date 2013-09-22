@@ -5,7 +5,7 @@ function save_options() {
     chrome.storage.local.set({"openure_key":keyName});
 
     var select = document.getElementById("openure-development");
-    var keyName = select.value;
+    var keyName = select.checked;
     chrome.storage.local.set({"openure_development":keyName});
 
     // Update status to let user know options were saved.
@@ -26,9 +26,9 @@ function restore_options() {
         }
 
         var keyName = openure_data["openure_development"];
-        if (!keyName) {
+        if (keyName) {
             var select = document.getElementById("openure-development");
-            select.value = keyName;
+            select.checked=keyName;
         }
     });
 }
