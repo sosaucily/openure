@@ -39,6 +39,32 @@ Why
 -------------------------
 It's a hassle to find and drill down into your views from the console.  Going back and adding clogs or debuggers isn't fun either.  Just click and get crazy.
 
+Development (help make me better!)
+-------------------------
+git clone
+
+To load your local copy of openure.js in your chrome extension, run this command.
+```grunt connect:server:keepalive```
+Don't forget to check the "Run in local development mode" checkbox in the extension's popup.
+To see it, click on the extension icon in chrome.
+
+If you make changes to the core pieces of the extension, rather than the openure.js application file
+you will need to do the following to test locally.
+
+* click 'Developer mode' in the chrome extensions page
+* click 'Load unpacked extension' and select the openure directory.
+* click "reload" on the extensions page next to Openure when you make changes to the extension.
+
+Write tests under the specs folder, and name them *_spec.js
+
+Run specs with:
+```grunt shell:jasmine```
+
+Implement feature
+
+pull-request
+
+Bask in the warmth of your generosity. 
 
 Future Development
 -------------------------
