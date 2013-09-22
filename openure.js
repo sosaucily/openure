@@ -7,18 +7,29 @@
         currentView: "",
         listener: "",
         trackedViewsIDs: [],
-        stackSize: 0,
-        maxStackSize: 30,
+        maxStackSize: 6,
         failCount: 3,
+        total: 0,
 
         reset: function () {
             this.allViews = [];
             this.trackedViewsIDs = [];
+            this.total = 0;
         },
 
-        findViewsInArray: function (array) {
-            //for x in array.len....
-            //this.findViewsInView(region.currentView);
+        findViewsInArray: function (array, depth) {
+            _(array).each(function(elem) {
+                if (elem instanceof Backbone.View) {
+                    this.registerView(elem);
+                    this.findViewsInObject(elem, depth+1);
+                } else if (elem instanceof Array) {
+                    this.findViewsInArray(elem, depth+1);
+                } else if (elem instanceof Function) {
+                    //skip
+                } else if (elem instanceof Object) {
+                    this.findViewsInObject(elem, depth+1);
+                }
+            }, this);
         },
 
         registerView: function (view) {
@@ -28,28 +39,26 @@
             }
         },
 
-        findViewsInObject: function (obj) {
-            this.stackSize++;
-            if (this.stackSize < this.maxStackSize) {
+        findViewsInObject: function (obj, depth) {
+            if (depth < this.maxStackSize) {
                 for (var prop in obj) {
                     if (obj.nodeName) {
                         //this is an html element, and continuing will blow up
                         return;
                     }
-
                     if (obj[prop] instanceof Backbone.View) {
                         this.registerView(obj[prop]);
-                        this.findViewsInObject(obj[prop]);
+                        this.findViewsInObject(obj[prop], depth+1);
                     } else if (obj[prop] instanceof Array) {
-                        this.findViewsInArray(obj[prop]);
+                        this.findViewsInArray(obj[prop], depth+1);
                     } else if (obj[prop] instanceof Function) {
                         //skip
                     } else if (obj[prop] instanceof Object) {
-                        this.findViewsInObject(obj[prop]);
+                        this.findViewsInObject(obj[prop], depth+1);
                     }
                 }
             }
-            this.stackSize--;
+            this.total++;
         },
 
         applySelectedView: function () {
@@ -98,7 +107,7 @@
                 }
                 that.reset();
 
-                that.findViewsInObject(eval(backbone_app_key));
+                that.findViewsInObject(eval(backbone_app_key), 0);
 
                 _.each(that.allViews, function (view) {
                     if (!view.openure) {
@@ -119,7 +128,7 @@
                         });
                     }
                 }, that);
-            }, 2000);
+            }, 3000);
         }
     };
 
