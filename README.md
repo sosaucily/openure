@@ -43,8 +43,12 @@ Development (help make me better!)
 -------------------------
 git clone
 
+npm install (from in the openure directory)
+
 To load your local copy of openure.js in your chrome extension, run this command.
+
 ```grunt connect:server:keepalive```
+
 Don't forget to check the "Run in local development mode" checkbox in the extension's popup.
 To see it, click on the extension icon in chrome.
 
