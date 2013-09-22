@@ -6,59 +6,69 @@
         allViews: [],
         currentView: "",
         listener: "",
-        trackedViewsIDs: [],
-        maxStackSize: 6,
+        maxStackSize: 15,
         failCount: 3,
-        total: 0,
+        total: [],
 
         reset: function () {
             this.allViews = [];
-            this.trackedViewsIDs = [];
-            this.total = 0;
-        },
-
-        findViewsInArray: function (array, depth) {
-            _(array).each(function(elem) {
-                if (elem instanceof Backbone.View) {
-                    this.registerView(elem);
-                    this.findViewsInObject(elem, depth+1);
-                } else if (elem instanceof Array) {
-                    this.findViewsInArray(elem, depth+1);
-                } else if (elem instanceof Function) {
-                    //skip
-                } else if (elem instanceof Object) {
-                    this.findViewsInObject(elem, depth+1);
-                }
-            }, this);
+            _(this.total).each(function (foundItem) {
+                delete foundItem.openure;
+            });
+            this.total = [];
         },
 
         registerView: function (view) {
-            if (view.cid && _.lastIndexOf(this.trackedViewsIDs, view.cid) == -1) {
-                this.trackedViewsIDs.push(view.cid);
+            if (!view.openure.found) {
                 this.allViews.push(view);
+                view.openure.found = true;
             }
         },
 
         findViewsInObject: function (obj, depth) {
             if (depth < this.maxStackSize) {
-                for (var prop in obj) {
-                    if (obj.nodeName) {
-                        //this is an html element, and continuing will blow up
-                        return;
-                    }
-                    if (obj[prop] instanceof Backbone.View) {
-                        this.registerView(obj[prop]);
-                        this.findViewsInObject(obj[prop], depth+1);
-                    } else if (obj[prop] instanceof Array) {
-                        this.findViewsInArray(obj[prop], depth+1);
-                    } else if (obj[prop] instanceof Function) {
-                        //skip
-                    } else if (obj[prop] instanceof Object) {
-                        this.findViewsInObject(obj[prop], depth+1);
+                if (obj instanceof Array) {
+                    _(obj).each(function(elem) {
+                        if (elem instanceof Backbone.View) {
+                            elem.openure = {};
+                            this.registerView(elem);
+                            this.findViewsInObject(elem, depth+1);
+                        } else if (elem instanceof Array) {
+                            this.findViewsInObject(elem, depth+1);
+                        } else if (elem instanceof Function) {
+                            //skip
+                        } else if (elem instanceof Object) {
+                            obj.openure = {};
+                            this.findViewsInObject(elem, depth+1);
+                        }
+                    }, this);
+                }
+                else {
+                    for (var prop in obj) {
+                        if (obj[prop] && !obj[prop].openure) {
+                            if (obj.nodeName) {
+                                //this is an html element, and continuing will blow up
+                                return;
+                            }
+                            if (obj[prop] instanceof Backbone.View) {
+                                obj[prop].openure = {};
+                                this.registerView(obj[prop]);
+                                this.findViewsInObject(obj[prop], depth+1);
+                            } else if (obj[prop] instanceof Array) {
+                                this.findViewsInObject(obj[prop], depth+1);
+                            } else if (obj[prop] instanceof Function) {
+                                //skip
+                            } else if (obj[prop] instanceof Object) {
+                                obj[prop].openure = {};
+                                this.findViewsInObject(obj[prop], depth+1);
+                            }
+                        }
                     }
                 }
             }
-            this.total++;
+            if (obj.openure) {
+                this.total.push(obj);
+            }
         },
 
         applySelectedView: function () {
@@ -99,7 +109,7 @@
                     eval(backbone_app_key);
                 } catch(e) {
                     Openure.failCount--;
-                    console.log("Unable to find " + backbone_app_key + ".  Retrying " + Openure.failCount + " more times.")
+                    console.log("Unable to find " + backbone_app_key + ".  Retrying " + Openure.failCount + " more times.");
                     if (Openure.failCount <= 0) {
                         window.clearInterval(Openure.intervalHandler);
                     }
@@ -107,18 +117,23 @@
                 }
                 that.reset();
 
+                eval(backbone_app_key).openure = {};
                 that.findViewsInObject(eval(backbone_app_key), 0);
 
+                _(that.total).each(function (foundItem) {
+                    delete foundItem.openure;
+                });
+
                 _.each(that.allViews, function (view) {
-                    if (!view.openure) {
-                        view.openure = function (e) {
+                    if (!view.openure_callback) {
+                        view.openure_callback = function (e) {
                             if (e.metaKey && e.shiftKey) {
                                 e.preventDefault();
                                 e.stopImmediatePropagation();
                                 $(e.target).trigger('sup');
                             }
                         };
-                        view.$el[0].addEventListener('click', _.bind(view.openure, that), true);
+                        view.$el[0].addEventListener('click', _.bind(view.openure_callback, that), true);
                         $(view.el).on('sup', function (e) {
                             e.stopPropagation();
                             var ownIt = _.bind(that.applySelectedView, that);
