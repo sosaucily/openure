@@ -45,9 +45,17 @@ Development (help make me better!)
 
 ```npm install``` (from in the openure directory)
 
-To load your local copy of openure.js in your chrome extension, run this command.
+To use your local copy of openure.js from within your chrome extension, install the foreman gem and run this command.
+
+```foreman start```
+
+Foreman will run the commands in the Procfile.  Alternatively you can run these directly from two terminal windows.
+
+The first is to host the file on port 9000.  The second is to copy your working copy of openure.js to the hosted directory so you can test your changes as you develop.
+They are:
 
 ```grunt connect:server:keepalive```
+```grunt watch```
 
 Don't forget to check the "Run in local development mode" checkbox in the extension's popup.
 To see it, click on the extension icon in chrome.
