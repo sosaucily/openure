@@ -2,7 +2,7 @@
     "manifest_version": 2,
     "name": "Openure",
     "description": "Expose your Backbone views in a single click.",
-    "version": "0.5",
+    "version": "0.6",
     "web_accessible_resources": [
         "openure.js"
     ],

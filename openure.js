@@ -135,11 +135,16 @@
                         };
                         view.$el[0].addEventListener('click', _.bind(view.openure_callback, that), true);
                         $(view.el).on('sup', function (e) {
+                            var userSelectVal = view.$el.css("-webkit-user-select");
+                            view.$el.css("-webkit-user-select", "none");
                             e.stopPropagation();
                             var ownIt = _.bind(that.applySelectedView, that);
                             clearInterval(that.listener);
                             that.listener = setInterval(ownIt, 100);
                             that.currentView = view;
+                            _.delay(function () {
+                                view.$el.css("-webkit-user-select", userSelectVal);
+                            }, 1000);
                         });
                     }
                 }, that);
