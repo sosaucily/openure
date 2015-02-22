@@ -27,7 +27,8 @@ module.exports = function(grunt) {
                 options: {
                     port: 9000,
                     base: '.',
-                    protocol: 'https'
+                    protocol: 'https',
+                    keepalive: true
                 }
             }
         }

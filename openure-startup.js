@@ -1,6 +1,10 @@
 var openure_keys = document.createElement('openure_keys');
 openure_keys.type = "text/html";
 
+var openlog = function (message) {
+    console.log("Openure: " + message);
+}
+
 chrome.storage.local.get(["openure_key","openure_development","openure_urls"], function (openure_data){
 
     if (openure_data['openure_key']) {
@@ -35,8 +39,11 @@ chrome.storage.local.get(["openure_key","openure_development","openure_urls"], f
             var script = document.createElement('script');
             script.src = "https://rawgit.com/sosaucily/openure/master/openure.js";
             if (openure_data['openure_development']) {
-                console.log('Running Openure in development mode from the grunt server');
-                script.src = "https://localhost:9000/openure.js";
+                var localFile = "https://localhost:9000/openure.js";
+                openlog('Running in development mode from the grunt server');
+                script.src = localFile;
+                openlog('Attempting to pull openure.js file from local grunt server at ' + localFile + ".  " +
+                    "Ensure grunt server is running");
             }
             script.type = "text/javascript";
 

@@ -2,6 +2,10 @@
     loadOpenureDependencies();
     var $ = jQuery.noConflict();
 
+    var openlog = function (message) {
+        console.log("Openure: " + message);
+    }
+
     Openure = {
         allViews: [],
         currentView: "",
@@ -13,15 +17,15 @@
         reset: function () {
             this.allViews = [];
             _(this.total).each(function (foundItem) {
-                delete foundItem.openure;
+                delete foundItem.Openure;
             });
             this.total = [];
         },
 
         registerView: function (view) {
-            if (!view.openure.found) {
+            if (!view.Openure.found) {
                 this.allViews.push(view);
-                view.openure.found = true;
+                view.Openure.found = true;
             }
         },
 
@@ -30,7 +34,7 @@
                 if (obj instanceof Array) {
                     _(obj).each(function(elem) {
                         if (elem instanceof Backbone.View) {
-                            elem.openure = {};
+                            elem.Openure = {};
                             this.registerView(elem);
                             this.findViewsInObject(elem, depth+1);
                         } else if (elem instanceof Array) {
@@ -38,20 +42,20 @@
                         } else if (elem instanceof Function) {
                             //skip
                         } else if (elem instanceof Object) {
-                            obj.openure = {};
+                            obj.Openure = {};
                             this.findViewsInObject(elem, depth+1);
                         }
                     }, this);
                 }
                 else {
                     for (var prop in obj) {
-                        if (obj[prop] && !obj[prop].openure) {
+                        if (obj[prop] && !obj[prop].Openure) {
                             if (obj.nodeName) {
                                 //this is an html element, and continuing will blow up
                                 return;
                             }
                             if (obj[prop] instanceof Backbone.View) {
-                                obj[prop].openure = {};
+                                obj[prop].Openure = {};
                                 this.registerView(obj[prop]);
                                 this.findViewsInObject(obj[prop], depth+1);
                             } else if (obj[prop] instanceof Array) {
@@ -59,42 +63,42 @@
                             } else if (obj[prop] instanceof Function) {
                                 //skip
                             } else if (obj[prop] instanceof Object) {
-                                obj[prop].openure = {};
+                                obj[prop].Openure = {};
                                 this.findViewsInObject(obj[prop], depth+1);
                             }
                         }
                     }
                 }
             }
-            if (obj.openure) {
+            if (obj.Openure) {
                 this.total.push(obj);
             }
         },
 
         applySelectedView: function () {
             clearInterval(this.listener);
-            console.log("Openure: You clicked view: " + this.currentView.cid);
-            console.log("You now have access to the 'view', 'model', 'collection' and 'options' variables!");
+            openlog("You clicked view: " + this.currentView.cid);
+            openlog("You now have access to the 'view', 'model', 'collection' and 'options' variables!");
 
             isObject = function (obj) {
                 return obj === Object(obj);
             };
 
+            //These get exposed to the JS console in chrome
             model = this.currentView.model;
             view = this.currentView;
             collection = this.currentView.collection;
             options = this.currentView.options;
 
-
             $(view.el).spotlight();
         },
 
-        go: function () {
+        main: function () {
             var backbone_app_key,
                 openureKey = $('openure_keys');
 
             if ((openureKey.length < 1 || openureKey.text() === "")) {
-                console.log('No Openure keys are configured.  Go to the Chrome extensions page and add the key to the Openure options page.');
+                openlog('No Openure keys are configured.  Go to the Chrome extensions page and add the key to the Openure options page.');
                 return;
             }
             else {
@@ -103,13 +107,13 @@
 
             var that = this;
 
-            console.log('Running Openure against global variable: ' + backbone_app_key);
+            openlog('Running analyzer against global variable: ' + backbone_app_key);
             Openure.intervalHandler = window.setInterval(function () {
                 try {
                     eval(backbone_app_key);
                 } catch(e) {
                     Openure.failCount--;
-                    console.log("Unable to find " + backbone_app_key + ".  Retrying " + Openure.failCount + " more times.");
+                    openlog("Unable to find " + backbone_app_key + ".  Retrying " + Openure.failCount + " more times.");
                     if (Openure.failCount <= 0) {
                         window.clearInterval(Openure.intervalHandler);
                     }
@@ -117,23 +121,25 @@
                 }
                 that.reset();
 
-                eval(backbone_app_key).openure = {};
+                eval(backbone_app_key).Openure = {};
                 that.findViewsInObject(eval(backbone_app_key), 0);
 
+                openlog("Analyzed page and found " + that.allViews.length + " views");
                 _(that.total).each(function (foundItem) {
-                    delete foundItem.openure;
+                    delete foundItem.Openure;
                 });
 
                 _.each(that.allViews, function (view) {
-                    if (!view.openure_callback) {
-                        view.openure_callback = function (e) {
+                    view.Openure = {};
+                    if (!view.Openure.Openure_callback) {
+                        view.Openure.Openure_callback = function (e) {
                             if (e.metaKey && e.shiftKey) {
                                 e.preventDefault();
                                 e.stopImmediatePropagation();
                                 $(e.target).trigger('sup');
                             }
                         };
-                        view.$el[0].addEventListener('click', _.bind(view.openure_callback, that), true);
+                        view.$el[0].addEventListener('click', _.bind(view.Openure.Openure_callback, that), true);
                         $(view.el).on('sup', function (e) {
                             var userSelectVal = view.$el.css("-webkit-user-select");
                             view.$el.css("-webkit-user-select", "none");
@@ -153,7 +159,7 @@
     };
 
     $(function () {
-        Openure.go();
+        Openure.main();
     });
 })();
 
