@@ -33,7 +33,7 @@ chrome.storage.local.get(["openure_key","openure_development","openure_urls"], f
             document.head.appendChild(openure_keys);
 
             var script = document.createElement('script');
-            script.src = "https://raw.github.com/sosaucily/openure/master/openure.js";
+            script.src = "https://rawgit.com/sosaucily/openure/master/openure.js";
             if (openure_data['openure_development']) {
                 console.log('Running Openure in development mode from the grunt server');
                 script.src = "https://localhost:9000/openure.js";
