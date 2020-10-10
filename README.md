@@ -1,5 +1,7 @@
 Openure
 ================================
+Is an 'Openure' the opposite of a closure?!
+
 Openure exposes the internal variables of Backbone Views on a page.
 
 
